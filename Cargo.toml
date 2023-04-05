@@ -1,0 +1,22 @@
+[package]
+name = "krabster"
+version = "0.1.0"
+edition = "2021"
+
+[registries.crates-io]
+protocol = "sparse"
+
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3
+
+[dependencies]
+axum = "0.6.12"
+serde = {version = "1.0.159", features = ["derive"]}
+serde_json = "1.0.95"
+tokio = {version = "1.27.0", features = ["rt-multi-thread"]}
+rustube = "0.6.0"
+anyhow = "1.0.70"
+async-trait = "0.1.68"
