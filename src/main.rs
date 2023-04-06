@@ -11,7 +11,7 @@ use std::path;
 async fn main() -> Result<()> {
     let app = Router::new().route("/yt/:id", get(get_endpoint));
 
-    axum::Server::bind(&net::SocketAddr::from(([127, 0, 0, 1], 3000)).into())
+    axum::Server::bind(&net::SocketAddr::from(([127, 0, 0, 1], 3000)))
         .serve(app.into_make_service())
         .await?;
 
