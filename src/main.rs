@@ -1,17 +1,19 @@
 mod configuration;
 mod downloader;
 
-use anyhow::Result;
-use axum::{extract::Path, routing::get, Json, Router};
-use downloader::base::Download;
 use std::net;
 use std::path;
+use downloader::base::Download;
+use anyhow::Result;
+use axum::{extract::Path, routing::get, Json, Router};
 
 #[tokio::main]
 async fn main() -> Result<()> {
     let app = Router::new().route("/yt/:id", get(get_endpoint));
 
-    axum::Server::bind(&net::SocketAddr::from(([127, 0, 0, 1], 3000)))
+    let server_config = configuration::server::ServerConfiguration::default();
+
+    axum::Server::bind(&net::SocketAddr::from((server_config.listen_address, server_config.listen_port)))
         .serve(app.into_make_service())
         .await?;
 
